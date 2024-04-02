@@ -3,11 +3,14 @@ import serial.tools.list_ports
 
 def getPort():
     ports = serial.tools.list_ports.comports()
+    N = len(ports)
     commPort = "None"
-    for port in ports:
-        if "USB" in str(port):
-            splitPort = str(port).split(" ")
-            commPort = splitPort[0]
+    for i in range(0, N):
+        port = ports[i]
+        strPort = str(port)
+        if "USB" in strPort:
+            splitPort = strPort.split(" ")
+            commPort = (splitPort[0])
     return commPort
 
 portName = getPort()
@@ -78,3 +81,7 @@ while True:
     time.sleep(1)
     print(readTemperature())
     time.sleep(1)
+    setDevice1(True)
+    time.sleep(2)
+    setDevice1(False)
+    time.sleep(2)
